@@ -44,8 +44,8 @@
 		// .staggerFromTo(line, 0.1,  {x:10, y:10},{x:-10, y:-10, ease: Back.easeInOut.config(1.5)},0.05) 
 		//.set(wrapper, {opacity:1});
 
-		svgLo
-		.staggerTo(lineData, 1, {y:8, x:7, ease:Elastic.easeOut.config(1.1, 0.4)}, 0.2);
+		// svgLo
+		// .staggerTo(lineData, 1, {y:8, x:7, ease:Elastic.easeOut.config(1.1, 0.4)}, 0.2);
 		// .staggerTo(lineData	, 0.05	, {y:10, className:"active"},0.05);
 
 function random_value() {
