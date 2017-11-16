@@ -1,0 +1,231 @@
+body {
+    background: #43e0c5;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 18px;
+    line-height: 28px;
+    font-family: corbel;
+}
+
+body > .wrapper {
+    margin: 0 auto;
+    display: block;
+    max-width: 400px;
+    opacity: 0;
+}
+
+
+img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.logo_img {
+    padding: 20px 106px 50px;
+    box-sizing: border-box;
+    background: #00dab4;
+}
+
+.first-element {
+    background: #00c5a3;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 5px auto 0;
+    border-top: 4px solid #fff;
+}
+
+ul.links {
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 0;
+    list-style: none;
+}
+
+li {
+    text-align: left;
+    padding: 0;
+    background: #f5fff6;
+    border-bottom: 3px solid rgb(0, 220, 183);
+    line-height: 33px;
+    cursor: pointer;
+}
+
+
+li a {
+    display: block;
+    padding: 5px 15px;
+    text-decoration: none;
+    color: #005849;
+    transition: all 0.2s linear;
+}
+
+li:hover a {
+    padding: 5px 15px 5px 25px;
+}
+.caption {
+    padding: 13px 5px;
+    margin: 10px 0 15px;
+    text-align: center;
+    max-width: 400px;
+    box-sizing: border-box;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.02em;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: #005849;
+    border-top: 3px solid #00cea9;
+    border-bottom: 3px solid #00cea9;
+}
+
+.buttons {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: 100px;
+}
+
+button {
+    width: 100%;
+    line-height: 34px;
+    display: block;
+    margin-bottom: 9px;
+    border: none;
+    background: #ffffff;
+    color: #4e7171;
+    cursor: pointer;
+    text-transform: capitalize;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    /* border-radius: 0 15px; */
+}
+
+button:nth-child(odd) {
+    border-radius: 0 15px;
+}
+
+button:nth-child(even) {
+    border-radius: 15px 0;
+}
+
+#loader {
+    position: fixed;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    text-align: center;
+    opacity: 0;
+    display: inline-block;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    display: block;
+    float: left;
+    border: 1px solid #005849;
+    border-radius: 50%;
+    background: transparent;
+    margin: 0 5%;
+    box-sizing: border-box;
+}
+
+
+/* ================================================================================
+    Visual Effect CSS
+    ================================================================================ */
+
+svg {
+    stroke: #000;
+    width: 100%;
+}
+
+.svg_wrapper {
+    width: 90%;
+    max-width: 700px;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.main_wrappper {
+    position: absolute;
+}
+
+#arc_path_1 {
+    opacity: 0;
+}
+
+line.active {
+    stroke: white;
+}
+
+
+.color {
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 0;
+    background: white;
+    border-radius: 50%;
+    top: 0;
+    opacity: 0;
+    transform: translate(-50%, -50% );
+    /*display: none;*/
+}
+
+.bg_1 {
+  background: red;
+  width:130%;
+  height: 130%;
+  opacity: 1;
+}
+
+.btn {
+  position: relative;
+}
+
+
+
+
+
+
+#knobBG, #knob {
+  /*position:absolute;
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/knob_Base.png');
+  width:355px; 
+  height:355px;*/
+
+    position: absolute;
+    background-image: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-size: 100%;
+    transform: rotate(-90deg);
+    
+}
+#description {
+  font-size:20px;
+}
+#knob {
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/knob_Spinner.png');
+  z-index: 1;
+  background-size: 120%;
+  background-position: center;
+}
+
+
+/*Matrix3d(ScaleX, 0, 0, 0, 0, ScaleY, 0, 0, 0, 0, 1, 0, TranslateX, TranslateY, ScaleZ, 1)*/
+
+
+
