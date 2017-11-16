@@ -34,7 +34,7 @@
 	// var tlLoader = new TimelineMax({repeat:2, onComplete: loadContent});
 
 	var svgLoader = new TimelineMax({onComplete: ticking});
-	var svgLo = new TimelineMax({});
+	var svgLo = new TimelineMax();
 
 	svgLoader
 		.staggerFromTo(line, 0.1,  {y:10, opacity:0},{y:0, opacity:1, ease: Back.easeInOut.config(1.5)},0.01)
@@ -54,6 +54,17 @@ function random_value() {
 		$(this).css({"left": Math.random()+"%"});
 	})
 }
+
+function getRandomPosition() {
+		// alert("hi");
+		svgLo
+		.staggerTo(".bg1",1,{left:random(100, 200), top: random(50, 150,)}, 0.1)
+		.staggerTo(".bg2",1,{left:random(300, 500), top: random(150, 300,)}, 0.1)
+		.staggerTo(".bg3",1,{left:random(500, 600), top: random(300, 450,)}, 0.1)
+		.staggerTo(".bg4",1,{left:random(700, 900), top: random(450, 600,)}, 0.1)
+		.staggerTo(".bg5",1,{left:random(900, 1100), top: random(600, 750,)}, 0.1)
+		.staggerTo(".bg6",1,{left:random(1200, 1400), top: random(750, 900,)}, 0.1)
+	}
 
 // random_value();
 
@@ -167,7 +178,8 @@ function random_value() {
 						reversetimerFn();
 											
 					}
-					
+
+					// getRandomPosition();
 					
 					// clearInterval(t);
 					// rotation = false;
@@ -188,7 +200,12 @@ function random_value() {
 						timer.reset(fast_dur);
 						reversetimerFn();
 											
-					}			
+					}	
+
+					// getRandomPosition();
+					
+
+
 				} else if(reverse_rotation == true) {
 					timer.reset(fast_dur);
 					output.removeClass("active");
@@ -315,6 +332,39 @@ function random_value() {
 		},10);
 
 	}
+
+	window.cars = ["white", "yellow", "orange","green","#3f51b5", "gae", "yellow", "orange","green","#3f51b5",];
+
+	function getRandomPosition() {
+		alert("hi");
+		svgLo
+		.to(".bg_1",1,{left:randxPos(),top: randyPos()}, 0.1)
+		.to(".bg_2",1,{left:randxPos(),top: randyPos()}, 0.1)
+		.to(".bg_3",1,{left:randxPos(),top: randyPos()}, 0.1)
+		.to(".bg_4",1,{left:randxPos(),top: randyPos()}, 0.1)
+		.to(".bg_5",1,{left:randxPos(),top: randyPos()}, 0.1)
+		.to(".bg_6",1,{left:randxPos(),top: randyPos()}, 0.1)
+		.to(".color", 1,{css:{width:"2000px", height:"2000px", backgroundColor: cars[1]}}, 1.2)
+		.to("body", 0.5, {css:{backgroundColor: cars[1]}}, "-=0.2")
+		.add("stop")
+		.to(".color",0.1, {css:{opacity: 0, left: "50%", top:"50%", width:"10px", height: "10px", backgroundColor:"rgba(255,255,255,0)"}}, "stop")
+		
+		
+	}
+
+	function randxPos(){
+		return random(200, ($(window).width() - 200))+"px";
+	}
+
+	function randyPos(){
+		return random(200, ($(window).height() - 200))+"px";
+	}
+
+	function random(min, max) {
+	  return min + Math.floor( Math.random() * (max - min));
+	}
+
+	getRandomPosition();
 
 	//with jquery
 	$('.pause').on('click', function(e) {
