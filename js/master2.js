@@ -34,11 +34,12 @@
 	// var tlLoader = new TimelineMax({repeat:2, onComplete: loadContent});
 
 	var svgLoader = new TimelineMax({onComplete: ticking});
-	var svgLo = new TimelineMax();
+	var svgLo = new TimelineMax({onComplete: changeBg});
 
 	svgLoader
-		.staggerFromTo(line, 0.1,  {y:10, opacity:0},{y:0, opacity:1, ease: Back.easeInOut.config(1.5)},0.01)
+		.staggerFromTo(line, 0.1,  {y:10, autoAlpha:0},{y:0, autoAlpha:1, ease: Back.easeInOut.config(1.5)},0.01)
 		.fromTo(svg, 2.4, {opacity:0, scale:0.1, y:100}, {opacity:1,  scale:1, y:0, ease:Back.easeInOut},0.1,0)
+		.set(svg, {className:"+=finish"})
 		// .delay(5);
 		// .staggerFromTo(line, 0.1,  {x:0, y: 0},{x:10, y:10, ease: Back.easeInOut.config(1.5)},0.05) 
 		// .staggerFromTo(line, 0.1,  {x:10, y:10},{x:-10, y:-10, ease: Back.easeInOut.config(1.5)},0.05) 
@@ -55,16 +56,7 @@ function random_value() {
 	})
 }
 
-function getRandomPosition() {
-		// alert("hi");
-		svgLo
-		.staggerTo(".bg1",1,{left:random(100, 200), top: random(50, 150,)}, 0.1)
-		.staggerTo(".bg2",1,{left:random(300, 500), top: random(150, 300,)}, 0.1)
-		.staggerTo(".bg3",1,{left:random(500, 600), top: random(300, 450,)}, 0.1)
-		.staggerTo(".bg4",1,{left:random(700, 900), top: random(450, 600,)}, 0.1)
-		.staggerTo(".bg5",1,{left:random(900, 1100), top: random(600, 750,)}, 0.1)
-		.staggerTo(".bg6",1,{left:random(1200, 1400), top: random(750, 900,)}, 0.1)
-	}
+
 
 // random_value();
 
@@ -72,6 +64,8 @@ function getRandomPosition() {
 		window.normal_dur = 250;	
 		window.rotation = false;
 		window.duration_time = normal_dur;	
+		window.arrVal = 0; 
+		window.arrValColor = 0;
 
 		
 	function ticking() {
@@ -112,10 +106,8 @@ function getRandomPosition() {
 		}, duration_time);
 
 		window.reversetimer = new Timer(function() {
-		    // your function here
-			
-				reversetimerFn();
-			
+		    // your function here			
+			reversetimerFn();
 		}, duration_time);
 
 		reversetimer.stop();
@@ -134,6 +126,7 @@ function getRandomPosition() {
 		window.line_length= $(line).length;
 		window.reverse_tick= false;
 		window.reverse_rotation= false;
+		
 
 		var timeInterval = function() {
 
@@ -179,7 +172,13 @@ function getRandomPosition() {
 											
 					}
 
-					// getRandomPosition();
+					arrVal = output.attr("prod-color");
+					arrValColor = output.attr("prod-color-line");
+					// alert(arrVal);
+					// alert("boaaaahhhaaa");
+
+					getRandomPosition(arrVal);
+					// svgLo.restart();
 					
 					// clearInterval(t);
 					// rotation = false;
@@ -192,6 +191,11 @@ function getRandomPosition() {
 						console.log("bye");
 						isPaused = true;
 						updateRotation();
+						arrVal = output.attr("prod-color");
+						arrValColor = output.attr("prod-color-line");
+						// alert("a" + arrVal);
+						// alert("hhhaaa");
+						getRandomPosition(arrVal);
 					}	
 					if(timetick == 271 || reverse_tick == true){
 						// console.log(timetick);
@@ -202,8 +206,7 @@ function getRandomPosition() {
 											
 					}	
 
-					// getRandomPosition();
-					
+					// svgLo.restart();
 
 
 				} else if(reverse_rotation == true) {
@@ -239,8 +242,14 @@ function getRandomPosition() {
 						reverse_rotation = false;
 						rotation = false;
 						console.log(reverse_rotation);
+						arrVal = output.next("line").attr("prod-color");
+						arrValColor = output.attr("prod-color-line");
+					// alert(arrVal);
+					// alert(arrVal);
 
-					
+					getRandomPosition(arrVal);
+
+						// getRestored();
 				}
 			} else {
 
@@ -269,18 +278,75 @@ function getRandomPosition() {
 				TweenMax.to(knob, 1, {rotation:timetick});
 				setTimeout(function(){timer.reset(normal_dur);},2000);
 				reverse_tick = false;
+
+
+				arrVal = output.attr("prod-color");
+				arrValColor = output.attr("prod-color-line");
+				console.log(arrVal+"10001");
+				getReverseRandomPosition(arrVal);
 			}
 			if(timetick <= 270){
 				output.removeClass("active");
 			}
-
-
-			
-
 		}
 
-		
+		// window.cars = ["blue", "yellow", "orange","green","#3f51b5", "gae", "yellow", "orange","green","#3f51b5",];
 
+		function getRandomPosition(dataVal) {
+			console.log(arrVal);
+			if(reverse_rotation == false){
+			// arrVal = 4;
+				$(".bg_1").animate({left:randxPos(),top: randyPos()}, 500);
+				$(".bg_2").animate({left:randxPos(),top: randyPos()}, 500);
+				$(".bg_3").animate({left:randxPos(),top: randyPos()}, 500);
+				$(".bg_4").animate({left:randxPos(),top: randyPos()}, 500);
+				$(".bg_5").animate({left:randxPos(),top: randyPos()}, 500);
+				$(".bg_6").animate({left:randxPos(),top: randyPos()}, 500);
+				$(".color").css({ background: dataVal});
+				$(".color").animate({width:"2000px", height:"2000px"}, 500, function(){
+					$("body").css({backgroundColor: dataVal});
+					$("line[data-mode='big']").css({stroke:arrValColor});
+					document.documentElement.style.setProperty('--themeColor', arrValColor);
+
+				});			
+				$(".color").animate({ left: "50%", top:"50%", width:"0", height: "0"}, 1000);
+			}
+		}
+
+		function getReverseRandomPosition(dataVal){
+				var lastElementColor = $("line[data-mode='big']").first().attr("prod-color");
+				$(".bg_1").animate({left:randxPos(),top: randyPos()}, 500);
+				$(".bg_2").animate({left:randxPos(),top: randyPos()}, 500);
+				$(".bg_3").animate({left:randxPos(),top: randyPos()}, 500);
+				$(".bg_4").animate({left:randxPos(),top: randyPos()}, 500);
+				$(".bg_5").animate({left:randxPos(),top: randyPos()}, 500);
+				$(".bg_6").animate({left:randxPos(),top: randyPos()}, 500);
+				$(".color").css({ background: lastElementColor});
+				$(".color").animate({width:"2000px", height:"2000px"}, 500, function(){
+					$("body").css({backgroundColor: dataVal});
+					$("line[data-mode='big']").css({stroke:arrValColor});
+					document.documentElement.style.setProperty('--themeColor', arrValColor);
+				});			
+				$(".color").animate({ left: "50%", top:"50%", width:"0", height: "0"}, 1000);
+		}
+
+		// function getRandomPosition() {
+		// 	console.log(arrVal);
+		// 	// arrVal = 4;
+		// 	svgLo
+		// 	.to(".bg_1",1,{left:randxPos(),top: randyPos()}, 0.1)
+		// 	.to(".bg_2",1,{left:randxPos(),top: randyPos()}, 0.1)
+		// 	.to(".bg_3",1,{left:randxPos(),top: randyPos()}, 0.1)
+		// 	.to(".bg_4",1,{left:randxPos(),top: randyPos()}, 0.1)
+		// 	.to(".bg_5",1,{left:randxPos(),top: randyPos()}, 0.1)
+		// 	.to(".bg_6",1,{left:randxPos(),top: randyPos()}, 0.1)
+		// 	.to(".color", 1,{css:{ opacity:1}}, 0.1)
+		// 	.to(".color", 1,{css:{ width:"2000px", height:"2000px",  backgroundColor: arrVal }}, 1)
+		// 	.set("body", {css:{backgroundColor: arrVal}}, "-=0.2")
+		// 	// .to(".color",0.5, {css:{opacity: 1, left: "50%", top:"50%", width:"10px", height: "10px", backgroundColor: arrVal}}, 2)
+		// }
+
+		
 
 
 		// window.t = window.setInterval(function(){
@@ -299,6 +365,11 @@ function getRandomPosition() {
 		// 	console.log(test);
 		// })
 		// i = test;
+	}
+	function changeBg() {
+
+		// $("body").css({backgroundColor: "red"});
+		// alert("why")
 	}
 
 	// function fast_ticking(time_dur) {
@@ -333,38 +404,39 @@ function getRandomPosition() {
 
 	}
 
-	window.cars = ["white", "yellow", "orange","green","#3f51b5", "gae", "yellow", "orange","green","#3f51b5",];
+	
+		
+		// svgLo.pause();
+		
+	// }
 
-	function getRandomPosition() {
-		alert("hi");
-		svgLo
-		.to(".bg_1",1,{left:randxPos(),top: randyPos()}, 0.1)
-		.to(".bg_2",1,{left:randxPos(),top: randyPos()}, 0.1)
-		.to(".bg_3",1,{left:randxPos(),top: randyPos()}, 0.1)
-		.to(".bg_4",1,{left:randxPos(),top: randyPos()}, 0.1)
-		.to(".bg_5",1,{left:randxPos(),top: randyPos()}, 0.1)
-		.to(".bg_6",1,{left:randxPos(),top: randyPos()}, 0.1)
-		.to(".color", 1,{css:{width:"2000px", height:"2000px", backgroundColor: cars[1]}}, 1.2)
-		.to("body", 0.5, {css:{backgroundColor: cars[1]}}, "-=0.2")
-		.add("stop")
-		.to(".color",0.1, {css:{opacity: 0, left: "50%", top:"50%", width:"10px", height: "10px", backgroundColor:"rgba(255,255,255,0)"}}, "stop")
-		
-		
+	function getRestored(dataVal) {
+		// svgLo
+		// .to(".color", 1,{css:{opacity: 0}})
+		// .to(".bg_1",1,{left:randxPos(),top: randyPos()}, 0.1)
+		// .to(".bg_2",1,{left:randxPos(),top: randyPos()}, 0.1)
+		// .to(".bg_3",1,{left:randxPos(),top: randyPos()}, 0.1)
+		// .to(".bg_4",1,{left:randxPos(),top: randyPos()}, 0.1)
+		// .to(".bg_5",1,{left:randxPos(),top: randyPos()}, 0.1)
+		// .to(".bg_6",1,{left:randxPos(),top: randyPos()}, 0.1)
+		// .to(".color", 1,{css:{width:"2000px", height:"2000px", backgroundColor: cars[1]}}, 1.2)
+		// .add("stop1")
+		// .to(".color",1,{css:{opacity: 1, left: "50%", top:"50%", width:"10px", height: "10px", backgroundColor: cars[dataVal]}}, "stop1")
 	}
 
 	function randxPos(){
-		return random(200, ($(window).width() - 200))+"px";
+		return random(0, ($(window).width()))+"px";
 	}
 
 	function randyPos(){
-		return random(200, ($(window).height() - 200))+"px";
+		return random(0, ($(window).height()))+"px";
 	}
 
 	function random(min, max) {
 	  return min + Math.floor( Math.random() * (max - min));
 	}
 
-	getRandomPosition();
+	// getRestored();
 
 	//with jquery
 	$('.pause').on('click', function(e) {

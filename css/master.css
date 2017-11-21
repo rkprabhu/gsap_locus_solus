@@ -7,6 +7,7 @@ body {
     font-size: 18px;
     line-height: 28px;
     font-family: corbel;
+    transition:all 0.3 linear;
 }
 
 body > .wrapper {
@@ -169,20 +170,40 @@ svg {
     opacity: 0;
 }
 
-line.active {
-    stroke: white;
+line {
+    transition: all 0.3 linear;
 }
+
+.finish line {
+    opacity: 0.6 !important;
+}
+
+:root {
+    --themeColor: white;
+}
+
+.finish line.active {
+    opacity: 1 !important;
+}
+
+line.active {
+    stroke: var(--themeColor);
+}
+
+
 
 
 .color {
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 0;
+    height: 0;
     left: 50%;
     background: white;
     border-radius: 50%;
     top: 50%;
     /*opacity: 0;*/
+    /*visibility: hidden;*/
+    transition:all 0.3 linear;
     transform: translate(-50%, -50% );
     /*display: none;*/
 }
